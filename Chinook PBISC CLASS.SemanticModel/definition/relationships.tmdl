@@ -1,0 +1,48 @@
+relationship AutoDetected_6dcee572-9dbd-44ce-9638-5bcde3fa033c
+	fromColumn: tracks.AlbumId
+	toColumn: albums.AlbumId
+
+relationship AutoDetected_6e55b6ea-dbc5-4d91-a45b-068fbcbcab57
+	fromColumn: albums.ArtistId
+	toColumn: artists.ArtistId
+
+relationship AutoDetected_cbbdceb9-306e-4806-9b6e-7fd78c354d8c
+	fromColumn: invoices.CustomerId
+	toColumn: customers.CustomerId
+
+relationship AutoDetected_30e3d4a2-5851-443e-9029-63599d5998c8
+	fromColumn: tracks.GenreId
+	toColumn: genres.GenreId
+
+relationship AutoDetected_42b42968-6c79-4edf-9d67-f6afbfbaa7f0
+	fromColumn: invoice_items.InvoiceId
+	toColumn: invoices.InvoiceId
+
+relationship AutoDetected_df7696e4-8783-43d5-b460-6a532ffff084
+	fromColumn: invoice_items.TrackId
+	toColumn: tracks.TrackId
+
+relationship AutoDetected_6d37ac32-0ab0-4c02-91f0-e0f4b52142aa
+	fromColumn: playlist_tracks.TrackId
+	toColumn: tracks.TrackId
+
+relationship AutoDetected_345ac464-aca4-4579-bbc9-fb5a144dd27d
+	fromColumn: tracks.MediaTypeId
+	toColumn: media_types.MediaTypeId
+
+relationship AutoDetected_37a646fa-61b8-45c0-82c1-06dae67b777d
+	fromColumn: playlist_tracks.PlaylistId
+	toColumn: playlists.PlaylistId
+
+relationship 452e1ac3-382d-efb2-9073-c747edec80ec
+	fromColumn: customers.SupportRepId
+	toColumn: employees.EmployeeId
+
+relationship 9382c5c8-b776-013f-a78d-96feb76b2e9c
+	fromColumn: invoices.InvoiceDate
+	toColumn: Calendar.Date
+
+relationship a7dd97a9-8077-50c4-95a8-a3cc29f79c73
+	fromColumn: 'Chinook Market basket'.TrackId_A
+	toColumn: tracks.TrackId
+

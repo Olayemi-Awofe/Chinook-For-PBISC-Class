@@ -1,0 +1,256 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 17.599999904632568
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 195.69262854535032
+          },
+          "nodeIndex": "albums",
+          "nodeLineageTag": "1c67df7f-7817-43b8-9c42-2ddb10971f7f",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "artists",
+          "nodeLineageTag": "840db91e-59ef-4e86-8168-2f49e86928e8",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 602.53966253105955,
+            "y": 564.71597039954906
+          },
+          "nodeIndex": "customers",
+          "nodeLineageTag": "47c309e0-dd46-434c-b507-8f62ec4fc9c0",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 1007.595713822705,
+            "y": 619
+          },
+          "nodeIndex": "employees",
+          "nodeLineageTag": "5f83070c-174b-47ad-bc09-c05c5059f65b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 297.81623859042907,
+            "y": 417
+          },
+          "nodeIndex": "genres",
+          "nodeLineageTag": "0db77e25-fb49-497b-9a0b-b876f70cfe1e",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 342,
+            "y": 38
+          },
+          "nodeIndex": "invoice_items",
+          "nodeLineageTag": "f9f9d424-cd5a-4841-8ab3-32f3d04b5c0b",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 666,
+            "y": 67.332175645031725
+          },
+          "nodeIndex": "invoices",
+          "nodeLineageTag": "e68bdf10-8a60-4e0b-a8b0-321238ce13e6",
+          "size": {
+            "height": 240,
+            "width": 234
+          },
+          "zIndex": 17
+        },
+        {
+          "location": {
+            "x": 317.02629130888226,
+            "y": 715.11758521893171
+          },
+          "nodeIndex": "media_types",
+          "nodeLineageTag": "7a2688d2-03ad-436c-9bb4-2993c3901317",
+          "size": {
+            "height": 164,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 608.33162789981384,
+            "y": 929.93538953400639
+          },
+          "nodeIndex": "playlists",
+          "nodeLineageTag": "7f6d2244-f57a-4ae0-bae1-1095182ed910",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 465.02261107554057
+          },
+          "nodeIndex": "tracks",
+          "nodeLineageTag": "7b238db5-a80b-474b-a900-98646a2dacb0",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 1715.595713822705,
+            "y": 363.15679733110585
+          },
+          "nodeIndex": "Measure",
+          "nodeLineageTag": "58eb892f-ef8f-4c6d-a09a-a993f78eb2d4",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1013.595713822705,
+            "y": 323.15679733110585
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "50dba6cd-c057-4737-8cbf-7f0a20b6f532",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 16
+        },
+        {
+          "location": {
+            "x": 1713.595713822705,
+            "y": 476
+          },
+          "nodeIndex": "Date Slicers",
+          "nodeLineageTag": "569428cd-174f-4bc5-b3c3-a51522cca2d3",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1719.595713822705,
+            "y": 198
+          },
+          "nodeIndex": "Rve and Quantity botton",
+          "nodeLineageTag": "6c40e96e-479e-4816-a4b5-4fadf489cae8",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1719.595713822705,
+            "y": 639.15679733110585
+          },
+          "nodeIndex": "Artist & Genre button",
+          "nodeLineageTag": "190f745e-965e-4c2e-b85a-d430079e1e78",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1720.0277511762206,
+            "y": 803.88800048828125
+          },
+          "nodeIndex": "avg num sales button",
+          "nodeLineageTag": "716f097f-8f13-48db-be1c-8ecd0745520f",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 206,
+            "y": 904.15679733110585
+          },
+          "nodeIndex": "playlist_tracks",
+          "nodeLineageTag": "8e7ad1d4-27a9-472f-960d-7bc117d91cbf",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 1332.1567973311057
+          },
+          "nodeIndex": "Chinook Market basket",
+          "nodeLineageTag": "e2fc86c0-7b0a-4668-86e3-a5ce008a1b02",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 48,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

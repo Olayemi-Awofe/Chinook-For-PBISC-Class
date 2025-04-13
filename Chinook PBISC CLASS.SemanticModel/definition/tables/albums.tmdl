@@ -1,0 +1,43 @@
+table albums
+	lineageTag: b84335d5-c7ce-4ad9-9ada-f57cda2bcb72
+
+	column AlbumId
+		dataType: int64
+		formatString: 0
+		lineageTag: dc12ebbe-0749-4e33-a98f-46d172fd0e04
+		summarizeBy: none
+		sourceColumn: AlbumId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: 95704317-3afb-44ec-ab00-3e8327a0a086
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column ArtistId
+		dataType: int64
+		formatString: 0
+		lineageTag: 70340713-2748-427f-9da6-f5e3fd07624c
+		summarizeBy: none
+		sourceColumn: ArtistId
+
+		annotation SummarizationSetBy = Automatic
+
+	partition albums = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\HP\Downloads\albums.csv"),[Delimiter="	", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"AlbumId", Int64.Type}, {"Title", type text}, {"ArtistId", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,34 @@
+table genres
+	lineageTag: 0db77e25-fb49-497b-9a0b-b876f70cfe1e
+
+	column GenreId
+		dataType: int64
+		formatString: 0
+		lineageTag: 18e15084-034e-4315-9c17-ce50abda3859
+		summarizeBy: none
+		sourceColumn: GenreId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: 30e34559-e99e-4101-8a08-3a60a7db766a
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition genres = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\HP\Downloads\genres.csv"),[Delimiter="	", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"GenreId", Int64.Type}, {"Name", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

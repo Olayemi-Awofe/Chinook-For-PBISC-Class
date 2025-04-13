@@ -1,0 +1,48 @@
+table 'Rve and Quantity botton'
+	lineageTag: 6c40e96e-479e-4816-a4b5-4fadf489cae8
+
+	column Parameter
+		lineageTag: 1ade1564-7834-421c-a6bf-7c22a306e82c
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: 736aa9ec-751a-4154-9fbb-3a701b94843d
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: d87c2d31-0914-4614-896c-dc097458aaf7
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Rve and Quantity botton' = calculated
+		mode: import
+		source =
+				{
+				    ("Quantity", NAMEOF('Measure'[Total Quantity Sold]), 1),
+				    ("Sales", NAMEOF('Measure'[Total Revenue]), 0)
+				}
+
+	annotation PBI_Id = 88d02b4f88dc4bcd8f1ef90d7adb8553
+

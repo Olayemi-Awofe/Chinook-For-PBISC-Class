@@ -1,0 +1,37 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBIDesktopVersion = 2.141.1558.0 (25.03)+75b5f06a991f8f8a8a4d6b6fcd0f66e1ec2d6fdc
+
+annotation PBI_QueryOrder = ["Measure","albums","artists","customers","employees","genres","invoice_items","invoices","media_types","playlist_tracks","playlists","tracks","Chinook Market basket"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Measure
+ref table Calendar
+ref table 'Date Slicers'
+ref table 'Rve and Quantity botton'
+ref table 'Artist & Genre button'
+ref table 'avg num sales button'
+ref table albums
+ref table artists
+ref table customers
+ref table employees
+ref table genres
+ref table invoice_items
+ref table invoices
+ref table media_types
+ref table playlist_tracks
+ref table playlists
+ref table tracks
+ref table 'Chinook Market basket'
+
+ref cultureInfo en-US
+

@@ -1,0 +1,147 @@
+table customers
+	lineageTag: 1a7e72a2-a942-4bbb-b8a5-89559c63f198
+
+	column CustomerId
+		dataType: int64
+		formatString: 0
+		lineageTag: d6743275-1dfa-4653-adf8-2257c9a1ed0e
+		summarizeBy: none
+		sourceColumn: CustomerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column FirstName
+		dataType: string
+		lineageTag: c0e323ac-cf0d-453b-ab0f-dfb333ae5027
+		summarizeBy: none
+		sourceColumn: FirstName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastName
+		dataType: string
+		lineageTag: 26482d5d-23be-46c2-b985-d0042e43ab1f
+		summarizeBy: none
+		sourceColumn: LastName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Company
+		dataType: string
+		lineageTag: 54a0aeea-1aac-489d-b64e-cc7e992655ab
+		summarizeBy: none
+		sourceColumn: Company
+
+		annotation SummarizationSetBy = Automatic
+
+	column Address
+		dataType: string
+		lineageTag: f084f549-a3f0-4115-84ad-6e644ab9f751
+		summarizeBy: none
+		sourceColumn: Address
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: f9395987-dd7a-4bc4-b540-de314d5d82ab
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 2b229ce9-790f-4d85-b941-18b077b6ff7d
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 02322fcf-3664-4bce-bbf3-18c28718d1e2
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column PostalCode
+		dataType: string
+		lineageTag: 5cfdcb22-39aa-4628-8370-e72d0f3a766c
+		summarizeBy: none
+		sourceColumn: PostalCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Phone
+		dataType: string
+		lineageTag: b1e350ab-b0ef-47a3-b5bc-f2121d43087c
+		summarizeBy: none
+		sourceColumn: Phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fax
+		dataType: string
+		lineageTag: 3cd28dad-7bed-4642-b658-b38f358f0372
+		summarizeBy: none
+		sourceColumn: Fax
+
+		annotation SummarizationSetBy = Automatic
+
+	column Email
+		dataType: string
+		lineageTag: 50ad9c50-7e7b-4481-b00a-dfe1525a0789
+		summarizeBy: none
+		sourceColumn: Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column SupportRepId
+		dataType: int64
+		formatString: 0
+		lineageTag: eb55dc80-9072-4bf5-9640-84317f0e9da9
+		summarizeBy: none
+		sourceColumn: SupportRepId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerSegment = ```
+			
+			SWITCH(
+			    TRUE(),
+			    [Total Purchase] > 45, "H Value",
+			    [Total Purchase] > 40, "M Value",
+			    "L Value"
+			)
+			
+			```
+		lineageTag: 5eb01b2e-f1eb-4c60-a1d3-470e4ca3ecbb
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Full Name'
+		dataType: string
+		lineageTag: 13261f6f-9ef8-4f22-a795-fe5ba053159b
+		summarizeBy: none
+		sourceColumn: Full Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customers = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\HP\Downloads\customers.csv"),[Delimiter="	", Columns=13, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"CustomerId", Int64.Type}, {"FirstName", type text}, {"LastName", type text}, {"Company", type text}, {"Address", type text}, {"City", type text}, {"State", type text}, {"Country", type text}, {"PostalCode", type text}, {"Phone", type text}, {"Fax", type text}, {"Email", type text}, {"SupportRepId", Int64.Type}}),
+				    #"Inserted Merged Column" = Table.AddColumn(#"Changed Type", "Full Name", each Text.Combine({[FirstName], [LastName]}, " "), type text)
+				in
+				    #"Inserted Merged Column"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

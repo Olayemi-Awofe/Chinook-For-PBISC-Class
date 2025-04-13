@@ -1,0 +1,94 @@
+table invoices
+	lineageTag: e68bdf10-8a60-4e0b-a8b0-321238ce13e6
+
+	column InvoiceId
+		dataType: int64
+		formatString: 0
+		lineageTag: 591b0d9e-5d1a-4673-9158-5a1301c6aafd
+		summarizeBy: none
+		sourceColumn: InvoiceId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerId
+		dataType: int64
+		formatString: 0
+		lineageTag: 718bd943-ec89-4fd4-933e-96c83a46199b
+		summarizeBy: none
+		sourceColumn: CustomerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4cbec6d0-32fe-41df-b54c-2abf21084916
+		summarizeBy: none
+		sourceColumn: InvoiceDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column BillingAddress
+		dataType: string
+		lineageTag: a8c8a996-1e73-4df9-a8dd-36bb64629606
+		summarizeBy: none
+		sourceColumn: BillingAddress
+
+		annotation SummarizationSetBy = Automatic
+
+	column BillingCity
+		dataType: string
+		lineageTag: ecea21e3-3155-4c62-b33e-0f3d7c9a9b5e
+		summarizeBy: none
+		sourceColumn: BillingCity
+
+		annotation SummarizationSetBy = Automatic
+
+	column BillingState
+		dataType: string
+		lineageTag: 8624d650-eca3-4ba6-ad72-47b154d828a4
+		summarizeBy: none
+		sourceColumn: BillingState
+
+		annotation SummarizationSetBy = Automatic
+
+	column BillingCountry
+		dataType: string
+		lineageTag: cad2f8fe-02f6-4793-b553-3d2a606e3dc7
+		summarizeBy: none
+		sourceColumn: BillingCountry
+
+		annotation SummarizationSetBy = Automatic
+
+	column BillingPostalCode
+		dataType: string
+		lineageTag: 86efd553-acdd-46d0-b72d-cf1c052f38c6
+		summarizeBy: none
+		sourceColumn: BillingPostalCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total
+		dataType: double
+		lineageTag: 676eb2bb-827d-4eac-8238-938f563ee45d
+		summarizeBy: sum
+		sourceColumn: Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition invoices = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\HP\Downloads\invoices.csv"),[Delimiter="	", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"InvoiceId", Int64.Type}, {"CustomerId", Int64.Type}, {"InvoiceDate", type datetime}, {"BillingAddress", type text}, {"BillingCity", type text}, {"BillingState", type text}, {"BillingCountry", type text}, {"BillingPostalCode", type text}, {"Total", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

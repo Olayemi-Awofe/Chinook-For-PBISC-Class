@@ -1,0 +1,48 @@
+table 'Artist & Genre button'
+	lineageTag: 190f745e-965e-4c2e-b85a-d430079e1e78
+
+	column 'Artist & Genre button'
+		lineageTag: ec2e2333-115b-4885-91f5-1253adb74306
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Artist & Genre button Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Artist & Genre button Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Artist & Genre button Fields'
+		isHidden
+		lineageTag: c163ddef-baca-4521-acb0-fe885badd5eb
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Artist & Genre button Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Artist & Genre button Order'
+		isHidden
+		formatString: 0
+		lineageTag: 4947eb14-83f1-4070-b1a0-c3040f4513d4
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Artist & Genre button' = calculated
+		mode: import
+		source =
+				{
+				    ("Artist", NAMEOF('artists'[Name]), 0),
+				    ("Genre", NAMEOF('genres'[Name]), 1)
+				}
+
+	annotation PBI_Id = 39e34fb1375d441dba28f35d410bfb69
+

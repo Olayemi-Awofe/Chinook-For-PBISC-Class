@@ -1,0 +1,49 @@
+table 'Date Slicers'
+	lineageTag: 569428cd-174f-4bc5-b3c3-a51522cca2d3
+
+	column 'Date Slicers'
+		lineageTag: 210315af-2e3e-4317-8ac3-52723d297588
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Date Slicers Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Date Slicers Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date Slicers Fields'
+		isHidden
+		lineageTag: 3714b1ec-8423-40fd-a074-993c1305a906
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Date Slicers Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date Slicers Order'
+		isHidden
+		formatString: 0
+		lineageTag: 0cf0b362-d865-4a72-9d8a-8c5e7b44a3d9
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Date Slicers' = calculated
+		mode: import
+		source =
+				{
+				    ("M", NAMEOF('Calendar'[MonthName]), 1),
+				    ("Y", NAMEOF('Calendar'[Year]), 0),
+				    ("D", NAMEOF('Calendar'[Weekday]), 2)
+				}
+
+	annotation PBI_Id = ba3c9cee9fa94b50aa6f9e7bd3113c4e
+

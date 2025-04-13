@@ -1,0 +1,63 @@
+table invoice_items
+	lineageTag: f9f9d424-cd5a-4841-8ab3-32f3d04b5c0b
+
+	column InvoiceLineId
+		dataType: int64
+		formatString: 0
+		lineageTag: 1d254c87-e6e0-4215-8ea5-a99fb9c19533
+		summarizeBy: count
+		sourceColumn: InvoiceLineId
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceId
+		dataType: int64
+		formatString: 0
+		lineageTag: fec400cf-5ebc-46ae-aa02-b8b1b974e6bb
+		summarizeBy: none
+		sourceColumn: InvoiceId
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrackId
+		dataType: int64
+		formatString: 0
+		lineageTag: 970c016a-f425-40af-8e88-0a55f51ca674
+		summarizeBy: none
+		sourceColumn: TrackId
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitPrice
+		dataType: double
+		lineageTag: 56a38c32-5673-4ca4-b6f9-009a6fd33db5
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 1659022f-8111-467c-94fc-9e7c51ad4e33
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	partition invoice_items = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\HP\Downloads\invoice_items.csv"),[Delimiter="	", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"InvoiceLineId", Int64.Type}, {"InvoiceId", Int64.Type}, {"TrackId", Int64.Type}, {"UnitPrice", type number}, {"Quantity", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

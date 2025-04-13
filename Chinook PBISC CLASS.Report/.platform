@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Chinook PBISC CLASS"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f8d40b24-3c3a-4da4-af88-7640ab183092"
+  }
+}

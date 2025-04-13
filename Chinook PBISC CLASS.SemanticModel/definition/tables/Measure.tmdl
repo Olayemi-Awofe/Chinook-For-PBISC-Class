@@ -1,0 +1,106 @@
+table Measure
+	lineageTag: 58eb892f-ef8f-4c6d-a09a-a993f78eb2d4
+
+	measure 'Total Revenue' = SUMX(invoice_items,invoice_items[UnitPrice]*invoice_items[Quantity])
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 3df050b3-99ab-416d-94e7-131d4de61213
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Purchase' = SUM(invoices[Total])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 060b5430-4a2b-47ef-89bb-d55afac681ae
+
+	measure 'Average Purchase Value' = AVERAGE(invoices[Total])
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 63ed2a69-0d2e-427e-b884-e38dacd869f5
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Number of Purchase' = COUNT(invoices[InvoiceId])
+		formatString: 0
+		lineageTag: 550384b4-27f2-4010-8724-fffde2afbc4a
+
+	measure 'Count of HV Customer' =
+			
+			CALCULATE(
+			    COUNTX(customers,customers[CustomerSegment]),
+			    customers[CustomerSegment]== "High-Value")
+		formatString: 0
+		lineageTag: 25576746-52f4-4b18-837c-0b7202491710
+
+	measure 'Number of Customer' = COUNT(customers[CustomerId])
+		formatString: 0
+		lineageTag: 9816f40f-0450-4269-a281-f2568b0efa99
+
+	measure 'Total Quantity Sold' = SUM(invoice_items[Quantity])
+		formatString: 0
+		lineageTag: 12193d39-668f-40ed-aeda-5a205d5b6cd0
+
+	measure MoM = ```
+			
+			VAR TS = [Total Revenue]
+			VAR PreviousMonthsales = 
+			        CALCULATE(
+			            TS,
+			            DATEADD('Calendar'[Date],-1,MONTH)
+			        )
+			VAR MoMSalesGrowth = 
+			        DIVIDE(TS-PreviousMonthsales,
+			        PreviousMonthsales,
+			        0
+			        )
+			RETURN
+			MoMSalesGrowth
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 1146ec8a-88bb-4537-b4bc-91796e55dabf
+
+	measure 'Label Placeholder' = 0
+		formatString: 0
+		lineageTag: 0b2c1c7e-184e-4f9a-9e32-abcebee405c5
+
+	measure 'Customer Label Bar chart label' = ```
+			
+			 Var _barname = 
+			    SELECTEDVALUE(customers[Full Name])
+			
+			Var _value = ROUND([Total Purchase],1)
+			Var _avg = ROUND([Average Purchase Value],1)
+			Var _clv = ROUND([CLV],1)
+			Var _label = _barname & " | " & _value & " | " & "CLV " & _clv 
+			
+			RETURN
+			_label
+			```
+		lineageTag: b2567f05-4f58-4cf2-9b2d-77c017c96dbe
+
+	measure 'churn rate by purchase' = DIVIDE([Number of Purchase],0.05)
+		lineageTag: 2f73be1f-bfe9-4e22-addf-f9e60f1433bf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CLV = ([Average Purchase Value]*[churn rate by purchase])
+		lineageTag: 6e3f43e7-eb0e-4385-98c0-4c714c249f02
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CF = ```
+			IF([Average Purchase Value] > 6, "#86AB89", "#A28B55") 
+			```
+		lineageTag: be3d8bf6-1636-4253-989c-0532d12cec8c
+
+	partition Measure = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

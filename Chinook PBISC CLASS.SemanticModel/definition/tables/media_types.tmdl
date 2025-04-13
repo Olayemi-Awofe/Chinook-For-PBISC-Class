@@ -1,0 +1,34 @@
+table media_types
+	lineageTag: 7a2688d2-03ad-436c-9bb4-2993c3901317
+
+	column MediaTypeId
+		dataType: int64
+		formatString: 0
+		lineageTag: 08dc3f1e-5652-48d0-8ff9-965b82c7a564
+		summarizeBy: none
+		sourceColumn: MediaTypeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: 42471f01-5b29-48c6-97fa-5a9db01f666b
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition media_types = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\HP\Downloads\media_types.csv"),[Delimiter="	", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"MediaTypeId", Int64.Type}, {"Name", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

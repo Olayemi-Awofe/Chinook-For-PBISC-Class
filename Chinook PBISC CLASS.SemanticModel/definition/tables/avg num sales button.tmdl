@@ -1,0 +1,49 @@
+table 'avg num sales button'
+	lineageTag: 716f097f-8f13-48db-be1c-8ecd0745520f
+
+	column 'avg num sales button'
+		lineageTag: 82d0f6a7-7a58-4e38-a51d-69703bd4189d
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'avg num sales button Order'
+
+		relatedColumnDetails
+			groupByColumn: 'avg num sales button Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'avg num sales button Fields'
+		isHidden
+		lineageTag: 2b4878d2-138d-4cf4-ab2e-703d926e9a15
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'avg num sales button Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'avg num sales button Order'
+		isHidden
+		formatString: 0
+		lineageTag: bbb755b0-448d-44ed-bb63-c1bc330d2fc8
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'avg num sales button' = calculated
+		mode: import
+		source =
+				{
+				    ("Avg P Value", NAMEOF('Measure'[Average Purchase Value]), 0),
+				    ("# of Purchase", NAMEOF('Measure'[Number of Purchase]), 1),
+				    ("T P Value", NAMEOF('Measure'[Total Purchase]), 2)
+				}
+
+	annotation PBI_Id = f7dda8c761704245a7ce7690d769cf32
+

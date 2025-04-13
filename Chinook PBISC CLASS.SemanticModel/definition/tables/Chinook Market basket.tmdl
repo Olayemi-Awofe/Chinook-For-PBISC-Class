@@ -1,0 +1,123 @@
+table 'Chinook Market basket'
+	lineageTag: e2fc86c0-7b0a-4668-86e3-a5ce008a1b02
+
+	column TrackId_A
+		dataType: int64
+		formatString: 0
+		lineageTag: beda9834-8e23-485e-916e-f614d59707ff
+		summarizeBy: none
+		sourceColumn: TrackId_A
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrackName_A
+		dataType: string
+		lineageTag: 0770b38a-df0b-43ba-b989-d7358f4e7227
+		summarizeBy: none
+		sourceColumn: TrackName_A
+
+		annotation SummarizationSetBy = Automatic
+
+	column AlbumName_A
+		dataType: string
+		lineageTag: 17876a87-dc65-4ba2-ac20-2f497087ee08
+		summarizeBy: none
+		sourceColumn: AlbumName_A
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrackId_B
+		dataType: int64
+		formatString: 0
+		lineageTag: 3aa06fe3-1335-4837-9b69-f372e73257d7
+		summarizeBy: sum
+		sourceColumn: TrackId_B
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrackName_B
+		dataType: string
+		lineageTag: cf4dbefb-186d-45df-b119-fad1f1a877ff
+		summarizeBy: none
+		sourceColumn: TrackName_B
+
+		annotation SummarizationSetBy = Automatic
+
+	column AlbumName_B
+		dataType: string
+		lineageTag: 01c1e8ad-8621-4f3c-b45a-5f3efef1789d
+		summarizeBy: none
+		sourceColumn: AlbumName_B
+
+		annotation SummarizationSetBy = Automatic
+
+	column PairCount
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f912dff-4637-461b-8f5f-86ce8a9001c0
+		summarizeBy: sum
+		sourceColumn: PairCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column PairSupport
+		dataType: double
+		lineageTag: 02b301e8-0350-4e4e-b2f2-78df4678d80d
+		summarizeBy: sum
+		sourceColumn: PairSupport
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Confidence_A_to_B
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c40eab7-cc63-436e-a974-8dbb80f1c007
+		summarizeBy: sum
+		sourceColumn: Confidence_A_to_B
+
+		annotation SummarizationSetBy = Automatic
+
+	column Confidence_B_to_A
+		dataType: int64
+		formatString: 0
+		lineageTag: eeed3f75-f9f9-4966-a23e-54ecff9a23b3
+		summarizeBy: sum
+		sourceColumn: Confidence_B_to_A
+
+		annotation SummarizationSetBy = Automatic
+
+	column Lift
+		dataType: double
+		lineageTag: 91725353-3285-4994-b0f0-bfab454dcc35
+		summarizeBy: sum
+		sourceColumn: Lift
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Album A & B'
+		dataType: string
+		lineageTag: 640e7c84-af7d-49b8-8ba7-3ccb800434d5
+		summarizeBy: none
+		sourceColumn: Album A & B
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Chinook Market basket' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\HP\Downloads\Chinook Market basket.csv"),[Delimiter="	", Columns=11, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"TrackId_A", Int64.Type}, {"TrackName_A", type text}, {"AlbumName_A", type text}, {"TrackId_B", Int64.Type}, {"TrackName_B", type text}, {"AlbumName_B", type text}, {"PairCount", Int64.Type}, {"PairSupport", type number}, {"Confidence_A_to_B", Int64.Type}, {"Confidence_B_to_A", Int64.Type}, {"Lift", type number}}),
+				    #"Inserted Merged Column" = Table.AddColumn(#"Changed Type", "Album A & B", each Text.Combine({[AlbumName_A], [AlbumName_B]}, " | "), type text)
+				in
+				    #"Inserted Merged Column"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
